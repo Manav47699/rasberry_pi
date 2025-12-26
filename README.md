@@ -1,4 +1,4 @@
-# DAY 1
+# DAY 1 (connecting rasberry pi to you pc and viewing it with a VNC-virtual network computng)
 ## What You'll Need
 
 - Raspberry Pi 3 (with power supply and microSD card—8GB or bigger).
@@ -51,7 +51,7 @@ Boom! You see the Raspberry Pi's full desktop on your PC screen. Now play around
 
 
 
-# DAy 3
+# DAY 3 (Settig up Master-Slave architecture with Rasberry PI 3 and esp 32 respectively)
 - Install "platform.io" extension in vs code, a logo will appear in the side bar. This allows you to do stuff that you generally do with arduino IDE.
 - click on the logo, click on open, select a project name, your board(eg:esp32 devkit v1), you framework, then create a new project.
 - you wil get a file name "platformio.ini" add this to the bottom if you are using esp32

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team CISCO</title>
+    <meta http-equiv="refresh" content="5">
+    <style>
+        body { font-family: sans-serif; text-align: center; }
+        img { width: 350px; margin: 10px; border: 2px solid red; }
+    </style>
+</head>
+<body>
+
+<h1>Team ARCS dipak chandan saurabh/h1>
+
+{% if images %}
+    <h2>Captured Intruders</h2>
+    {% for img in images %}
+        <div>
+            <p>{{ img.replace("brother_", "").replace(".jpg", "").replace("_", " ") }}</p>
+            <img src="{{ url_for('static', filename='captures/' + img) }}">
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No intrusions detected yet.</p>
+{% endif %}
+
+</body>
+</html>

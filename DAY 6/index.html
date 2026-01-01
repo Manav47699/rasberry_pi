@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Smart Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        /* Sensor Cards */
+        .card { background: #e3f2fd; padding: 15px; border-radius: 10px; margin: 15px 0; }
+        .value { font-size: 40px; font-weight: bold; color: #1565c0; }
+        .label { font-size: 18px; color: #555; }
+        
+        /* Buttons */
+        .btn { padding: 15px 30px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer; color: white; margin: 5px; }
+        .btn-on { background: #4caf50; }
+        .btn-off { background: #f44336; }
+        .btn:active { opacity: 0.8; } /* Click effect */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🏠 IoT Dashboard</h1>
+
+        <div class="card">
+            <div class="label">Temperature</div>
+            <div class="value"><span id="temp">--</span> °C</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Humidity</div>
+            <div class="value"><span id="hum">--</span> %</div>
+        </div>
+        
+        <p>Last Update: <span id="time">Waiting...</span></p>
+
+        <hr>
+
+        <h3>💡 Light Control</h3>
+        <button class="btn btn-on" onclick="toggleLED('ON')">Turn ON</button>
+        <button class="btn btn-off" onclick="toggleLED('OFF')">Turn OFF</button>
+        <p id="status">Status: Ready</p>
+        
+        <br>
+        <a href="/history">View Data Log</a>
+    </div>
+
+    <script>
+        // 1. Function to update sensors (The "Fetcher")
+        function updateSensors() {
+            fetch('/api/data')                 // Ask Python for data
+                .then(response => response.json()) // Convert JSON text to Object
+                .then(data => {
+                    // Update the HTML text
+                    document.getElementById('temp').innerText = data.temperature;
+                    document.getElementById('hum').innerText = data.humidity;
+                    document.getElementById('time').innerText = data.last_updated;
+                });
+        }
+
+        // 2. Function to Control LED (The "Commander")
+        function toggleLED(action) {
+            fetch('/api/led/' + action)        // Send command to Python
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('status').innerText = "Sent: " + data.command;
+                });
+        }
+
+        // 3. Run the Fetcher every 2 seconds
+        setInterval(updateSensors, 2000);
+    </script>
+
+</body>
+</html>

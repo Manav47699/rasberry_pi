@@ -1,0 +1,8 @@
+/home/your_pi/thief-detection/
+├── app.py                     # Flask + MQTT main script
+├── templates/
+│   └── index.html             # HTML page for dashboard
+├── static/
+│   └── captures/              # Folder for captured images
+
+
